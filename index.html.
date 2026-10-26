@@ -1,80 +1,266 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090711">
-<title>LEX VPN</title>
-<style>
-* { box-sizing: border-box; }
-body {
-  margin: 0; min-height: 100vh; padding: 24px;
-  display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(ellipse at top, #30134b, #090711 65%);
-  color: white; font-family: Arial, sans-serif;
-}
-.app { width: 100%; max-width: 390px; text-align: center; }
-.logo { font-size: 48px; font-weight: 900; letter-spacing: 7px; color: #c99cff; }
-.sub { color: #a99ab9; font-size: 12px; letter-spacing: 4px; margin-top: 8px; }
-.panel {
-  margin-top: 32px; padding: 26px 20px;
-  background: #15111f; border: 1px solid #49305d;
-  border-radius: 24px; box-shadow: 0 15px 55px #0008;
-}
-.status { color: #c4b4d4; font-size: 14px; margin-bottom: 24px; }
-.circle {
-  width: 145px; height: 145px; margin: auto; border-radius: 50%;
-  border: 2px solid #9855d2; background: #251533;
-  display: grid; place-items: center; box-shadow: 0 0 35px #a64cff30;
-}
-button, select { font: inherit; }
-button { cursor: pointer; color: white; }
-#connect {
-  width: 100%; margin-top: 25px; padding: 16px;
-  border: 0; border-radius: 13px;
-  background: linear-gradient(100deg, #7738bc, #aa60eb);
-  font-weight: bold;
-}
-.server { margin-top: 20px; text-align: left; padding: 15px; background: #21192d; border-radius: 13px; }
-select {
-  display: block; width: 100%; margin-top: 10px; padding: 12px;
-  border-radius: 9px; background: #100d17; color: white; border: 1px solid #49375d;
-}
-.note { margin-top: 20px; color: #a99ab9; font-size: 12px; line-height: 1.6; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090711">
+  <meta name="description" content="LEX VPN — твой безопасный цифровой мир">
+  <title>LEX VPN — Secure Connection</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      color-scheme: dark;
+      --purple: #9b5cff;
+      --bg: #090711;
+      --panel: #151222;
+      --muted: #a8a2bb;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(ellipse at 50% 0%, #422071 0%, transparent 48%),
+        var(--bg);
+    }
+
+    .wrap {
+      width: min(100% - 32px, 680px);
+      margin: auto;
+      padding: 26px 0 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 42px;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #b16cff, #6426c9);
+      box-shadow: 0 0 28px #8a3dff55;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    h1 { margin: 0; font-size: 25px; letter-spacing: 2px; }
+    .subtitle { color: var(--muted); font-size: 12px; margin-top: 5px; }
+
+    .badge {
+      margin-left: auto;
+      border: 1px solid #514566;
+      border-radius: 30px;
+      padding: 8px 11px;
+      color: #c7b4ff;
+      font-size: 11px;
+    }
+
+    .hero { text-align: center; margin-bottom: 30px; }
+    .hero h2 { font-size: clamp(28px, 7vw, 42px); margin: 0 0 12px; }
+    .hero p { color: var(--muted); line-height: 1.6; margin: auto; max-width: 420px; }
+
+    .panel {
+      background: linear-gradient(145deg, #1b162b, #100e19);
+      border: 1px solid #342747;
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: 0 20px 70px #0005;
+    }
+
+    .status {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      color: #c5bdd5;
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #777080;
+    }
+
+    .dot.online { background: #ffb84d; box-shadow: 0 0 12px #ffb84d88; }
+
+    .orb {
+      width: 176px;
+      height: 176px;
+      margin: 26px auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid #8e53d866;
+      background: radial-gradient(circle, #54288c55, #191126 68%);
+      box-shadow: 0 0 55px #8a39ed22, inset 0 0 35px #8a39ed22;
+    }
+
+    .shield { font-size: 76px; filter: drop-shadow(0 0 20px #a15aff88); }
+
+    .connect {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 16px;
+      padding: 17px;
+      background: linear-gradient(100deg, #a85cff, #6e36db);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 28px #873cff44;
+    }
+
+    .connect:active { transform: scale(.99); }
+    .hint { text-align: center; color: var(--muted); font-size: 12px; line-height: 1.5; margin: 14px 0 0; }
+
+    .section-title { font-size: 15px; margin: 26px 0 13px; }
+
+    .server {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      margin-top: 9px;
+      border: 1px solid #30273e;
+      border-radius: 15px;
+      background: #100d19;
+      cursor: pointer;
+    }
+
+    .server.selected { border-color: var(--purple); background: #251738; }
+
+    .flag { font-size: 25px; }
+    .server-info { flex: 1; }
+    .server-info strong { display: block; font-size: 14px; }
+    .server-info small { display: block; color: var(--muted); margin-top: 5px; }
+    .latency { color: #bca0ff; font-size: 12px; }
+
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .feature { padding: 15px 8px; text-align: center; background: #151121; border: 1px solid #2a2238; border-radius: 15px; }
+    .feature span { display: block; font-size: 22px; margin-bottom: 8px; }
+
+
+small { color: #c4bdd1; font-size: 11px; }
+
+    footer { text-align: center; color: #777084; font-size: 11px; line-height: 1.7; padding: 25px 8px 0; }
+
+    max-width: 420px {
+      .panel { padding: 19px; }
+      .badge { font-size: 10px; }
+      .features { gap: 6px; }
+    }
+  </style>
 </head>
 <body>
-<main class="app">
-  <div class="logo">LEX</div>
-  <div class="sub">PRIVATE NETWORK</div>
-  <section class="panel">
-    <div class="status" id="status">● VPN не подключён</div>
-    <div class="circle">
-      <svg width="65" height="65" viewBox="0 0 24 24" fill="none" stroke="#d5b4ff" stroke-width="1.5">
-        <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/>
-        <path d="m9 12 2 2 4-4"/>
-      </svg>
-    </div>
-    <button id="connect" onclick="demo()">ПОДКЛЮЧИТЬСЯ</button>
-    <div class="server">
-      <strong>Выбор сервера</strong>
-      <select id="server">
-        <option>Автоматически</option>
-        <option>Германия</option>
-        <option>Нидерланды</option>
-        <option>Финляндия</option>
-      </select>
-    </div>
-    <div class="note">LEX VPN · Первая версия
-Демонстрационный интерфейс. VPN-соединение пока не настроено.</div>
-  </section>
-</main>
-<script>
-function demo() {
-  document.getElementById('status').textContent =
-    'Демо-режим · VPN-сервер не подключён';
-  document.getElementById('connect').textContent = 'ДЕМО-РЕЖИМ';
-}
-</script>
+  <main class="wrap">
+    <header>
+      <div class="logo">L</div>
+      <div>
+        <h1>LEX VPN</h1>
+        <div class="subtitle">SECURE CONNECTION</div>
+      </div>
+      <div class="badge">✦ YOUR PRIVACY</div>
+    </header>
+
+    <section class="hero">
+      <h2>Твой интернет.
+Твои правила.</h2>
+      <p>Твой цифровой мир с LEX VPN — лаконично, удобно и в твоём стиле.</p>
+    </section>
+
+    <section class="panel">
+      <div class="status">
+        <span class="dot" id="dot"></span>
+        <span id="status">VPN не подключён</span>
+      </div>
+
+      <div class="orb">
+        <div class="shield">♢</div>
+      </div>
+
+      <button class="connect" id="connect">Подключить LEX VPN</button>
+      <p class="hint" id="hint">Выбери сервер ниже. Для настоящего подключения потребуется настроенный VPN-сервер.</p>
+
+      <h3 class="section-title">🌐 Выбери локацию</h3>
+
+      <div class="server selected" data-server="Нидерланды">
+        <div class="flag">🇳🇱</div>
+        <div class="server-info">
+          <strong>Нидерланды</strong>
+          <small>Европа · тестовый выбор</small>
+        </div>
+        <div class="latency">EU</div>
+      </div>
+
+      <div class="server" data-server="Германия">
+        <div class="flag">🇩🇪</div>
+        <div class="server-info">
+          <strong>Германия</strong>
+          <small>Европа · тестовый выбор</small>
+        </div>
+        <div class="latency">EU</div>
+      </div>
+
+      <div class="server" data-server="США">
+        <div class="flag">🇺🇸</div>
+        <div class="server-info">
+          <strong>США</strong>
+          <small>Америка · тестовый выбор</small>
+        </div>
+        <div class="latency">US</div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="feature"><span>🛡️</span><small>Защита соединения</small></div>
+      <div class="feature"><span>⚡</span><small>Простой интерфейс</small></div>
+      <div class="feature"><span>🌍</span><small>Выбор локации</small></div>
+    </section>
+
+    <footer>
+      LEX VPN · YOUR DIGITAL SPACE
+
+      Де
+трационный интерфейс. VPN-трафик пока не подключён.
+    </footer>
+  </main>
+
+  <script>
+    const connect = document.getElementById('connect');
+    const status = document.getElementById('status');
+    const hint = document.getElementById('hint');
+    const dot = document.getElementById('dot');
+    let selected = 'Нидерланды';
+
+    document.querySelectorAll('.server').forEach(server => {
+      server.addEventListener('click', () => {
+        document.querySelectorAll('.server').forEach(item => item.classList.remove('selected'));
+        server.classList.add('selected');
+        selected = server.dataset.server;
+        hint.textContent = 'Выбран сервер: ' + selected + '. Для подключения нужна серверная настройка.';
+      });
+    });
+
+    connect.addEventListener('click', () => {
+      status.textContent = 'Сервер не настроен';
+      dot.classList.add('online');
+      connect.textContent = 'Подключение недоступно';
+      hint.textContent = 'LEX VPN пока работает как демонстрационный сайт. Выбран сервер: ' + selected + '. Настоящий VPN-сервер ещё нужно подключить.';
+      connect.disabled = true;
+      connect.style.opacity = '0.7';
+    });
+  </script>
 </body>
-</html>
+</html>.feature
